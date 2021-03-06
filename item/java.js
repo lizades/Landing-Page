@@ -1,5 +1,10 @@
-let name = prompt("Введите своё имя: ");
-alert('Привет: ' + name);
+let name = prompt("Введите своё имя: ", '');
+if (name == ""){
+  alert('Здравствуйте, гость' );
+}
+else{
+  alert('Здравствуйте, ' + name);
+}
 
 
 function area(){
@@ -40,9 +45,15 @@ let timer;
 
 let Timer = {
   timeCount() {
-    document.getElementById("countHours").innerHTML = hours.toString();
-    document.getElementById("countMinutes").innerHTML = minutes.toString();
-    document.getElementById("countSeconds").innerHTML = seconds.toString();
+    if(hours.toString().length==1) document.getElementById("countHours").innerHTML = "0"+hours.toString();
+    else document.getElementById("countHours").innerHTML = hours.toString();
+
+    if(minutes.toString().length==1) document.getElementById("countMinutes").innerHTML = "0"+minutes.toString();
+    else document.getElementById("countMinutes").innerHTML = minutes.toString();
+
+    if (seconds.toString().length==1) document.getElementById("countSeconds").innerHTML = "0"+seconds.toString();
+    else document.getElementById("countSeconds").innerHTML = seconds.toString()
+
     seconds++;
     if (seconds == 60){
       seconds = 0;
@@ -79,7 +90,7 @@ let Timer = {
 };
 
 
-var questions=[
+let questions=[
     {
         text: "[] + false - null + true:",
         answers: ["0",
@@ -157,36 +168,43 @@ var questions=[
   },
     ];
     
-    var yourAns = new Array;
-    var score = 0;
+    let yourAns = new Array;
+    let score = 0;
     
     function Engine(question, answer) {yourAns[question]=answer;}
     
-    function Score(){
-       var answerText = "Результаты:\n";
-       for(var i = 0; i < yourAns.length; ++i){
-        var num = i+1;
-        answerText=answerText+"\n    Вопрос №"+ num +"";
-        if(yourAns[i]!=questions[i].correctAnswer){
-            answerText=answerText+"\n    Правильный ответ: " +
-            questions[i].answers[questions[i].correctAnswer] + "\n";
+      function Score(){
+      let answerText = "Результаты:\n";
+      let sum = 0;
+        for(let i = 0; i < yourAns.length; ++i){
+          let num = i+1;
+          sum++;
+          answerText=answerText+"\n    Вопрос №"+ num +"";
+          if(yourAns[i]!=questions[i].correctAnswer){
+              answerText=answerText+"\n    Правильный ответ: " +
+              questions[i].answers[questions[i].correctAnswer] + "\n";
           }
-            else{
-            answerText=answerText+": Верно! \n";
-            ++score;
-            }
-           }
-    
-       answerText=answerText+"\nВсего правильных ответов: "+score+"\n";
-    
-       alert(answerText);
-       yourAns = [];
-       score = 0;
-       clearForm("quiz");
-    }
+          else{
+              answerText=answerText+": Верно! \n";
+              ++score;
+          }
+        }    
+        if(sum == 10){
+          answerText=answerText+"\nВсего правильных ответов: "+score+"\n";
+          alert(answerText);
+          yourAns = [];
+          score = 0;
+          clearForm("quiz");
+        }
+        else{
+          alert("fdsdfisdf");
+        }
+
+      }
     function clearForm(name) {
-       var f = document.forms[name];
-       for(var i = 0; i < f.elements.length; ++i) {
+       let f = document.forms[name];
+       sum=0;
+       for(let i = 0; i < f.elements.length; ++i) {
         if(f.elements[i].checked)
             f.elements[i].checked = false;
         }
